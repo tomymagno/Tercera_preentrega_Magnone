@@ -11,6 +11,6 @@ urlpatterns = [
     path("clientes/", listar_clientes, name="lista_clientes"),
     path("productos/", listar_productos, name="lista_productos"),
     path("crear-producto/", crear_producto, name="crear_producto"),
-    path("buscar-productos/", buscar_producto, name="buscar_productos"),
+    path("buscar-producto/", buscar_producto, name="buscar_producto"),
 
 ]

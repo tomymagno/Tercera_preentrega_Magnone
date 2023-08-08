@@ -51,11 +51,11 @@ def crear_producto(request):
     )
     return http_response
 
-def buscar_productos(request):
+def buscar_producto(request):
     if request.method == "POST":
         data = request.POST
         busqueda = data["busqueda"]
-        cursos = Producto.objects.filter(
+        productos = Producto.objects.filter(
             Q(nombre=busqueda) | Q(producto__contains=busqueda)
             )
         contexto = {
