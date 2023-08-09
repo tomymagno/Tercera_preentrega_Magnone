@@ -1,24 +1,16 @@
 {% extends "base.html" %}
 
 {% block titulo %}
-Lista de productos
+Lista de clientes
 {% endblock titulo %}
 
 {% block contenido %}
-<h3>Productos:</h3>
-<a href="{% url 'lista_productos' %}">Ver todos</a>
-<a href="{% url 'crear_producto' %}">CREAR PRODUCTO</a>
-<br><br>
-<form action="{% url 'buscar_producto' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="precio">
-    <input type="submit" value="Buscar por precio">
-</form>
-<br>
+
+<h3>Clientes inscriptos:</h3>
 <ul>
-{% for producto in productos %}
+{% for cliente in clientes %}
     <li>
-        {{ producto.nombre_producto }}, {{ producto.precio }}
+        {{ cliente.apellido }}, {{ cliente.nombre }}
     </li>
 {% endfor %}
 </ul>

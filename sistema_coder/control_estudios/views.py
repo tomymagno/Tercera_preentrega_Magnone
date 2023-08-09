@@ -54,6 +54,36 @@ def crear_producto(request):
 def buscar_producto(request):
     if request.method == "POST":
         data = request.POST
+        precio_busqueda = data.get("precio")  # Use data.get() to avoid KeyError
+        if precio_busqueda is not None:
+            # Convertir la cantidad de búsqueda a un valor numérico (por ejemplo, 600)
+            precio_busqueda = float(precio_busqueda)
+            
+            # Definir el rango de búsqueda aproximada
+            rango_inferior = precio_busqueda * 0.9  # 90% del precio de búsqueda
+            rango_superior = precio_busqueda * 1.1  # 110% del precio de búsqueda
+            
+            # Filtrar productos cuyos precios están dentro del rango aproximado
+            productos = Producto.objects.filter(precio__gte=rango_inferior, precio__lte=rango_superior)
+            
+            contexto = {
+                "productos": productos,
+            }
+            return render(
+                request=request,
+                template_name='control_estudios/lista_productos.html',
+                context=contexto,
+            )
+    
+    return render(
+        request=request,
+        template_name='control_estudios/lista_productos.html',
+        context={},  # Puedes proporcionar un contexto vacío o personalizado según sea necesario
+    )
+'''
+def buscar_producto(request):
+    if request.method == "POST":
+        data = request.POST
         precio = data.get("precio")  # Use data.get() to avoid KeyError
         if precio is not None:  # Check if precio exists in data
             productos = Producto.objects.filter(precio__exact=precio)
@@ -71,3 +101,4 @@ def buscar_producto(request):
         template_name='control_estudios/lista_productos.html',
         context={}, 
     )
+'''
