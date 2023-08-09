@@ -54,16 +54,20 @@ def crear_producto(request):
 def buscar_producto(request):
     if request.method == "POST":
         data = request.POST
-        busqueda = data["busqueda"]
-        productos = Producto.objects.filter(
-            Q(nombre=busqueda) | Q(producto__contains=busqueda)
+        precio = data.get("precio")  # Use data.get() to avoid KeyError
+        if precio is not None:  # Check if precio exists in data
+            productos = Producto.objects.filter(precio__exact=precio)
+            contexto = {
+                "productos": productos,
+            }
+            return render(
+                request=request,
+                template_name='control_estudios/lista_productos.html',
+                context=contexto,
             )
-        contexto = {
-            "productos": productos,
-        }
-        http_response = render(
-            request=request,
-            template_name='control_estudios/lista_productos.html',
-            context=contexto,
-        )
-        return http_response
+    
+    return render(
+        request=request,
+        template_name='control_estudios/lista_productos.html',
+        context={}, 
+    )
