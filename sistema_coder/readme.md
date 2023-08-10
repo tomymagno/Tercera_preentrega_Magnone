@@ -1,2 +1,3 @@
-usuario: admin
-contrasena: sup3r123!
+# SUPER USUARIO
+    usuario: admin
+    contraseña: tomy28!
